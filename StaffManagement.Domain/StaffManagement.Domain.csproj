@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Abstractions\" />
+    <Folder Include="Errors\" />
     <Folder Include="IRepositories\" />
   </ItemGroup>
 
