@@ -1,13 +1,12 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace StaffManagement.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class OracleMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,9 +15,9 @@ namespace StaffManagement.Infrastructure.Migrations
                 name: "DEPARTMENTS",
                 columns: table => new
                 {
-                    DEPARTMENT_ID = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    NAME = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: true)
+                    DEPARTMENT_ID = table.Column<int>(type: "NUMBER(10)", nullable: false)
+                        .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
+                    NAME = table.Column<string>(type: "NVARCHAR2(30)", maxLength: 30, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -29,11 +28,11 @@ namespace StaffManagement.Infrastructure.Migrations
                 name: "JOB_CATEGORIES",
                 columns: table => new
                 {
-                    CATEGORY_ID = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    DESCRIPTION = table.Column<string>(type: "character varying(60)", maxLength: 60, nullable: false),
-                    MIN_SALARY = table.Column<decimal>(type: "numeric(10,2)", precision: 10, scale: 2, nullable: true),
-                    MAX_SALARY = table.Column<decimal>(type: "numeric(10,2)", precision: 10, scale: 2, nullable: true)
+                    CATEGORY_ID = table.Column<int>(type: "NUMBER(10)", nullable: false)
+                        .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
+                    DESCRIPTION = table.Column<string>(type: "NVARCHAR2(60)", maxLength: 60, nullable: false),
+                    MIN_SALARY = table.Column<decimal>(type: "DECIMAL(10,2)", precision: 10, scale: 2, nullable: true),
+                    MAX_SALARY = table.Column<decimal>(type: "DECIMAL(10,2)", precision: 10, scale: 2, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -44,16 +43,16 @@ namespace StaffManagement.Infrastructure.Migrations
                 name: "EMPLOYEES",
                 columns: table => new
                 {
-                    EMPLOYEE_ID = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    FIRST_NAME = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
-                    LAST_NAME = table.Column<string>(type: "character varying(25)", maxLength: 25, nullable: true),
-                    EMAIL = table.Column<string>(type: "character varying(25)", maxLength: 25, nullable: true),
-                    PHONE_NUMBER = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
-                    HIRE_DATE = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    TAX_ID = table.Column<int>(type: "integer", nullable: false),
-                    JOB_CATEGORY_ID = table.Column<int>(type: "integer", nullable: true),
-                    DEPARTMENT_ID = table.Column<int>(type: "integer", nullable: true)
+                    EMPLOYEE_ID = table.Column<int>(type: "NUMBER(10)", nullable: false)
+                        .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
+                    FIRST_NAME = table.Column<string>(type: "NVARCHAR2(20)", maxLength: 20, nullable: true),
+                    LAST_NAME = table.Column<string>(type: "NVARCHAR2(25)", maxLength: 25, nullable: true),
+                    EMAIL = table.Column<string>(type: "NVARCHAR2(25)", maxLength: 25, nullable: true),
+                    PHONE_NUMBER = table.Column<string>(type: "NVARCHAR2(20)", maxLength: 20, nullable: true),
+                    HIRE_DATE = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
+                    TAX_ID = table.Column<int>(type: "NUMBER(10)", nullable: false),
+                    JOB_CATEGORY_ID = table.Column<int>(type: "NUMBER(10)", nullable: true),
+                    DEPARTMENT_ID = table.Column<int>(type: "NUMBER(10)", nullable: true)
                 },
                 constraints: table =>
                 {
