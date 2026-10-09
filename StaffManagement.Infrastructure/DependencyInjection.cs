@@ -12,7 +12,7 @@ public static class DependencyInjection
     {
         services.AddDbContext<ApplicationDbContext>(options =>
         {
-            options.UseNpgsql(configuration.GetConnectionString("PostgresConnection"));
+            options.UseOracle(configuration.GetConnectionString("OracleDbConnection"));
         });
 
         services.AddScoped<IEmployeeRepository, EmployeeRepository>();
