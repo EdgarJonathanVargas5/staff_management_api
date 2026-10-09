@@ -3,7 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+using Oracle.EntityFrameworkCore.Metadata;
 using StaffManagement.Infrastructure;
 
 #nullable disable
@@ -18,22 +18,22 @@ namespace StaffManagement.Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "10.0.3")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+            OracleModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("StaffManagement.Domain.Entities.Department", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("NUMBER(10)")
                         .HasColumnName("DEPARTMENT_ID");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .HasMaxLength(30)
-                        .HasColumnType("character varying(30)")
+                        .HasColumnType("NVARCHAR2(30)")
                         .HasColumnName("NAME");
 
                     b.HasKey("Id");
@@ -45,45 +45,45 @@ namespace StaffManagement.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("NUMBER(10)")
                         .HasColumnName("EMPLOYEE_ID");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("DepartmentId")
-                        .HasColumnType("integer")
+                        .HasColumnType("NUMBER(10)")
                         .HasColumnName("DEPARTMENT_ID");
 
                     b.Property<string>("Email")
                         .HasMaxLength(25)
-                        .HasColumnType("character varying(25)")
+                        .HasColumnType("NVARCHAR2(25)")
                         .HasColumnName("EMAIL");
 
                     b.Property<string>("FirstName")
                         .HasMaxLength(20)
-                        .HasColumnType("character varying(20)")
+                        .HasColumnType("NVARCHAR2(20)")
                         .HasColumnName("FIRST_NAME");
 
                     b.Property<DateTime>("HireDate")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("TIMESTAMP(7)")
                         .HasColumnName("HIRE_DATE");
 
                     b.Property<int?>("JobCategoryId")
-                        .HasColumnType("integer")
+                        .HasColumnType("NUMBER(10)")
                         .HasColumnName("JOB_CATEGORY_ID");
 
                     b.Property<string>("LastName")
                         .HasMaxLength(25)
-                        .HasColumnType("character varying(25)")
+                        .HasColumnType("NVARCHAR2(25)")
                         .HasColumnName("LAST_NAME");
 
                     b.Property<string>("PhoneNumber")
                         .HasMaxLength(20)
-                        .HasColumnType("character varying(20)")
+                        .HasColumnType("NVARCHAR2(20)")
                         .HasColumnName("PHONE_NUMBER");
 
                     b.Property<int>("TaxId")
-                        .HasColumnType("integer")
+                        .HasColumnType("NUMBER(10)")
                         .HasColumnName("TAX_ID");
 
                     b.HasKey("Id");
@@ -99,25 +99,25 @@ namespace StaffManagement.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("NUMBER(10)")
                         .HasColumnName("CATEGORY_ID");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(60)
-                        .HasColumnType("character varying(60)")
+                        .HasColumnType("NVARCHAR2(60)")
                         .HasColumnName("DESCRIPTION");
 
                     b.Property<decimal?>("MaxSalary")
                         .HasPrecision(10, 2)
-                        .HasColumnType("numeric(10,2)")
+                        .HasColumnType("DECIMAL(10,2)")
                         .HasColumnName("MAX_SALARY");
 
                     b.Property<decimal?>("MinSalary")
                         .HasPrecision(10, 2)
-                        .HasColumnType("numeric(10,2)")
+                        .HasColumnType("DECIMAL(10,2)")
                         .HasColumnName("MIN_SALARY");
 
                     b.HasKey("Id");
