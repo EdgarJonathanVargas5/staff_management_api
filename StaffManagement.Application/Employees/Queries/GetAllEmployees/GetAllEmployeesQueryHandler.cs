@@ -1,9 +1,3 @@
-using Mapster;
-using MediatR;
-using StaffManagement.Application.Abstractions;
-using StaffManagement.Application.Employees.Dtos;
-using StaffManagement.Domain.IRepositories;
-
 namespace StaffManagement.Application.Employees.Queries.GetAllEmployees;
 
 public class GetAllEmployeesQueryHandler : IRequestHandler<GetAllEmployeesQuery, Result<List<EmployeeResponse>>>
