@@ -1,3 +1,4 @@
+using StaffManagement.Api.Middleware;
 using StaffManagement.Application;
 using StaffManagement.Infrastructure;
 
@@ -10,6 +11,8 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -19,5 +22,4 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
-
 app.Run();
