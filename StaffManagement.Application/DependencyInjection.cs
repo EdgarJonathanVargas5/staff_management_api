@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using StaffManagement.Application.Behaviors;
 
 namespace StaffManagement.Application;
 
@@ -9,7 +10,10 @@ public static class DependencyInjection
         services.AddMediatR(configuration =>
         {
             configuration.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
+            configuration.AddOpenBehavior(typeof(ValidationBehavior<,>));
         });
+
+        services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
 
         return services;
     }
