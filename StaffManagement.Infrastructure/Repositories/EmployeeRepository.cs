@@ -17,4 +17,22 @@ public class EmployeeRepository : IEmployeeRepository
     {
         return await _context.Employees.OrderBy(e => e.Id).ToListAsync();
     }
+
+    public async Task<Employee?> GetEmployeeByIdAsync(int employeeId)
+    {
+        return await _context.Employees.FindAsync(employeeId);
+    }
+
+    public async Task CreateEmployeeAsync(Employee employee, CancellationToken cancellationToken)
+    {
+        _context.Employees.Add(employee);
+        await _context.SaveChangesAsync(cancellationToken);
+    }
+    
+    public async Task<bool> EmployeeExists(int taxId)
+    {
+        return await _context.Employees.AnyAsync(e => e.TaxId == taxId);
+    }
+
+    
 }
