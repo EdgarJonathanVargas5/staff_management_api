@@ -24,11 +24,13 @@ public class UpdateEmployeeCommandHandler : IRequestHandler<UpdateEmployeeComman
         {
             return Result.Failure(EmployeeErrors.DuplicatedEmail);
         }
+        
         employee.FirstName = request.FirstName;
         employee.LastName = request.LastName;
         employee.Email = request.Email;
         employee.TaxId = request.TaxId;
         employee.PhoneNumber = request.PhoneNumber;
+
         var isSuccess = await _employeeRepository.UpdateEmployeeAsync(employee, cancellationToken);
         if (isSuccess)
         {
