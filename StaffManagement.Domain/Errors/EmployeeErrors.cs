@@ -28,4 +28,9 @@ public static class EmployeeErrors
         "EMPLOYEE.FAIL_DELETE", 
         "No se ha podido eliminar el registro del empleado."
     );
+
+    public static Error FailCreate = new Error(
+        "EMPLOYEE.FAIL_CREATE", 
+        "No se ha podido crear el registro del empleado."
+    );
 }

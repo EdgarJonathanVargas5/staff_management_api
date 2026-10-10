@@ -16,9 +16,20 @@ public class CreateEmployeeCommandHandler : IRequestHandler<CreateEmployeeComman
         {
             return Result<EmployeeResponse>.Failure(EmployeeErrors.DuplicatedTaxId);
         }
+        var emailExists = await _employeeRepository.EmailExists(request.Email);
+        if(emailExists)
+        {
+            return Result<EmployeeResponse>.Failure(EmployeeErrors.DuplicatedEmail);
+        }
         var employee = request.Adapt<Employee>();
-        await _employeeRepository.CreateEmployeeAsync(employee, cancellationToken);
+
+        var isSuccess = await _employeeRepository.CreateEmployeeAsync(employee, cancellationToken);
+        if (!isSuccess)
+        {
+            return Result<EmployeeResponse>.Failure(EmployeeErrors.FailCreate);
+        }
         var response = employee.Adapt<EmployeeResponse>();
+
         return Result<EmployeeResponse>.Success(response);
     }
 }

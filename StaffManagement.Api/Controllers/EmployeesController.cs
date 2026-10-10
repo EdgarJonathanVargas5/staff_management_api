@@ -1,8 +1,10 @@
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using StaffManagement.Application.Employees.Commands.CreateEmployee;
+using StaffManagement.Domain.Errors;
 using StaffManagement.Application.Employees.Dtos;
+using StaffManagement.Application.Employees.Commands.CreateEmployee;
+using StaffManagement.Application.Employees.Commands.DeleteEmployee;
+using StaffManagement.Application.Employees.Commands.UpdateEmployee;
 using StaffManagement.Application.Employees.Queries.GetAllEmployees;
 using StaffManagement.Application.Employees.Queries.GetEmployeeById;
 
@@ -60,6 +62,48 @@ namespace StaffManagement.Api.Controllers
                         result.Value);
             }
             return BadRequest(result.Errors);
+        }
+
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> UpdateEmployee(int id, UpdateEmployeeRequest request, CancellationToken cancellationToken)
+        {
+            var command = new UpdateEmployeeCommand
+            {
+                Id = id,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Email = request.Email,
+                PhoneNumber = request.PhoneNumber,
+                TaxId = request.TaxId
+            };
+
+            var result = await _sender.Send(command, cancellationToken);
+
+            if (result.IsFailure)
+            {
+                if (result.Errors.Any(error => error.Code == EmployeeErrors.NotFound.Code))
+                {
+                    return NotFound(result.Errors);
+                }
+
+                return BadRequest(result.Errors);
+            }
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteEmployee(int id, CancellationToken cancellationToken)
+        {
+            var command = new DeleteEmployeeCommand { Id = id };
+            var result = await _sender.Send(command, cancellationToken);
+
+            if (result.IsFailure)
+            {
+                return NotFound(result.Errors);
+            }
+
+            return NoContent();
         }
     }
 }

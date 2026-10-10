@@ -23,16 +23,42 @@ public class EmployeeRepository : IEmployeeRepository
         return await _context.Employees.FindAsync(employeeId);
     }
 
-    public async Task CreateEmployeeAsync(Employee employee, CancellationToken cancellationToken)
+    public async Task<bool> CreateEmployeeAsync(Employee employee, CancellationToken cancellationToken)
     {
         _context.Employees.Add(employee);
-        await _context.SaveChangesAsync(cancellationToken);
-    }
-    
-    public async Task<bool> EmployeeExists(int taxId)
-    {
-        return await _context.Employees.AnyAsync(e => e.TaxId == taxId);
+        return await SaveAsync(cancellationToken);
     }
 
+    public async Task<bool> UpdateEmployeeAsync(Employee employee, CancellationToken cancellationToken)
+    {
+        _context.Employees.Update(employee);
+        return await SaveAsync(cancellationToken);
+    }
+
+    public async Task<bool> DeleteEmployeeAsync(Employee employee, CancellationToken cancellationToken)
+    {
+        _context.Employees.Remove(employee);
+        return await SaveAsync(cancellationToken);
+    }
     
+    public async Task<bool> EmployeeExists(int taxId, int? excludingEmployeeId = null)
+    {
+        return await _context.Employees.AnyAsync(e =>
+                            e.TaxId == taxId &&
+                            (excludingEmployeeId == null || e.Id != excludingEmployeeId));
+    }
+
+    public async Task<bool> EmailExists(string email, int? excludingEmployeeId = null)
+    {
+        var normalizedEmail = email.Trim().ToLowerInvariant();
+
+        return await _context.Employees.AnyAsync(e =>
+                            e.Email == normalizedEmail &&
+                            (excludingEmployeeId == null || e.Id != excludingEmployeeId));
+    }
+
+    public async Task<bool> SaveAsync(CancellationToken cancellationToken)
+    {
+        return await _context.SaveChangesAsync(cancellationToken) > 0;
+    }
 }

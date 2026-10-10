@@ -21,6 +21,8 @@
     <Folder Include="Behaviors\" />
     <Folder Include="Employees\Commands\" />
     <Folder Include="Employees\Commands\CreateEmployee\" />
+    <Folder Include="Employees\Commands\DeleteEmployee\" />
+    <Folder Include="Employees\Commands\UpdateEmployee\" />
     <Folder Include="Employees\Dtos\" />
     <Folder Include="Employees\Queries\GetEmployeeById\" />
     <Folder Include="Exceptions\" />
