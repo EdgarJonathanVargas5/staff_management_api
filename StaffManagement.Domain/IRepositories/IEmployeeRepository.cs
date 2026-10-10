@@ -11,4 +11,5 @@ public interface IEmployeeRepository
     Task<bool> DeleteEmployeeAsync(Employee employee, CancellationToken cancellationToken);
     Task<bool> EmployeeExists(int taxId, int? excludingEmployeeId = null);
     Task<bool> EmailExists(string email, int? excludingEmployeeId = null);
+    Task<bool> SaveAsync(CancellationToken cancellationToken);
 }
