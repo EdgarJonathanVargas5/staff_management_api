@@ -19,6 +19,11 @@
   <ItemGroup>
     <Folder Include="Abstractions\" />
     <Folder Include="Behaviors\" />
+    <Folder Include="Departments\" />
+    <Folder Include="Departments\Dtos\" />
+    <Folder Include="Departments\Queries\" />
+    <Folder Include="Departments\Queries\GetAllDepartments\" />
+    <Folder Include="Departments\Queries\GetDepartmentById\" />
     <Folder Include="Employees\Commands\" />
     <Folder Include="Employees\Commands\CreateEmployee\" />
     <Folder Include="Employees\Commands\DeleteEmployee\" />
