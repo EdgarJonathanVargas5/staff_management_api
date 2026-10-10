@@ -1,12 +1,12 @@
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using StaffManagement.Application.Employees.Commands.CreateEmployee;
-using StaffManagement.Application.Employees.Commands.UpdateEmployee;
+using StaffManagement.Domain.Errors;
 using StaffManagement.Application.Employees.Dtos;
+using StaffManagement.Application.Employees.Commands.CreateEmployee;
+using StaffManagement.Application.Employees.Commands.DeleteEmployee;
+using StaffManagement.Application.Employees.Commands.UpdateEmployee;
 using StaffManagement.Application.Employees.Queries.GetAllEmployees;
 using StaffManagement.Application.Employees.Queries.GetEmployeeById;
-using StaffManagement.Domain.Errors;
 
 namespace StaffManagement.Api.Controllers
 {
@@ -87,6 +87,20 @@ namespace StaffManagement.Api.Controllers
                 }
 
                 return BadRequest(result.Errors);
+            }
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteEmployee(int id, CancellationToken cancellationToken)
+        {
+            var command = new DeleteEmployeeCommand { Id = id };
+            var result = await _sender.Send(command, cancellationToken);
+
+            if (result.IsFailure)
+            {
+                return NotFound(result.Errors);
             }
 
             return NoContent();
