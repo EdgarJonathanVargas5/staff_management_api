@@ -21,7 +21,7 @@ namespace StaffManagement.Api.Controllers
             _sender = sender;
         }
 
-        [HttpGet]
+        [HttpGet(Name = "GetAllEmployees")]
         public async Task<IActionResult> GetAllEmployees(CancellationToken cancellationToken)
         {
             var query = new GetAllEmployeesQuery();
@@ -41,7 +41,7 @@ namespace StaffManagement.Api.Controllers
             return Ok(result.Value);
         }
 
-        [HttpPost]
+        [HttpPost(Name = "CreateEmployee")]
         public async Task<IActionResult> CreateEmployee(CreateEmployeeRequest request, CancellationToken cancellationToken)
         {
             var command = new CreateEmployeeCommand
@@ -64,7 +64,7 @@ namespace StaffManagement.Api.Controllers
             return BadRequest(result.Errors);
         }
 
-        [HttpPut("{id:int}")]
+        [HttpPut("{id:int}", Name = "UpdateEmployee")]
         public async Task<IActionResult> UpdateEmployee(int id, UpdateEmployeeRequest request, CancellationToken cancellationToken)
         {
             var command = new UpdateEmployeeCommand
@@ -92,7 +92,7 @@ namespace StaffManagement.Api.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id:int}")]
+        [HttpDelete("{id:int}", Name = "DeleteEmployee")]
         public async Task<IActionResult> DeleteEmployee(int id, CancellationToken cancellationToken)
         {
             var command = new DeleteEmployeeCommand { Id = id };
