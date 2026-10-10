@@ -34,6 +34,12 @@ public class EmployeeRepository : IEmployeeRepository
         _context.Employees.Update(employee);
         return await SaveAsync(cancellationToken);
     }
+
+    public async Task<bool> DeleteEmployeeAsync(Employee employee, CancellationToken cancellationToken)
+    {
+        _context.Employees.Remove(employee);
+        return await SaveAsync(cancellationToken);
+    }
     
     public async Task<bool> EmployeeExists(int taxId, int? excludingEmployeeId = null)
     {
