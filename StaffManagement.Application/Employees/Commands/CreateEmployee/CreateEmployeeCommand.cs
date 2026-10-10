@@ -15,11 +15,11 @@ public class CreateEmployeeCommandValidator : AbstractValidator<CreateEmployeeCo
     {
         RuleFor(x => x.FirstName)
             .NotEmpty().WithMessage("El nombre es obligatorio.")
-            .MaximumLength(100).WithMessage("El nombre no puede superar los 100 caracteres.");
+            .MaximumLength(20).WithMessage("El nombre no puede superar los 20 caracteres.");
 
         RuleFor(x => x.LastName)
             .NotEmpty().WithMessage("El apellido es obligatorio.")
-            .MaximumLength(100).WithMessage("El apellido no puede superar los 100 caracteres.");
+            .MaximumLength(25).WithMessage("El apellido no puede superar los 25 caracteres.");
 
         RuleFor(x => x.Email)
             .EmailAddress().WithMessage("El email no tiene un formato válido.")
