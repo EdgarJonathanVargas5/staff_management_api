@@ -23,8 +23,6 @@
 
   <ItemGroup>
     <Folder Include="Authentication\" />
-    <Folder Include="Data\" />
-    <Folder Include="Extensions\" />
     <Folder Include="Repositories\" />
     <Folder Include="Identity\" />
   </ItemGroup>
