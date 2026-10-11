@@ -7,10 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\StaffManagement.Application\StaffManagement.Application.csproj" />
     <ProjectReference Include="..\StaffManagement.Domain\StaffManagement.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.3">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -19,7 +22,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Authentication\" />
+    <Folder Include="Data\" />
+    <Folder Include="Extensions\" />
     <Folder Include="Repositories\" />
+    <Folder Include="Identity\" />
   </ItemGroup>
 
 </Project>
