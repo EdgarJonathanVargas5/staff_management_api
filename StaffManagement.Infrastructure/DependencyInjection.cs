@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using StaffManagement.Application.Abstractions;
 using StaffManagement.Domain.IRepositories;
 using StaffManagement.Infrastructure.Authentication;
+using StaffManagement.Infrastructure.Data;
 using StaffManagement.Infrastructure.Identity;
 using StaffManagement.Infrastructure.Repositories;
 
@@ -43,5 +44,6 @@ public static class DependencyInjection
 
         services.AddScoped<IIdentityService, IdentityService>();
         services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
+        services.AddScoped<DatabaseSeeder>();
     }
 }
