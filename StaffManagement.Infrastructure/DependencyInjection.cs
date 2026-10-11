@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using StaffManagement.Application.Abstractions;
 using StaffManagement.Domain.IRepositories;
 using StaffManagement.Infrastructure.Authentication;
+using StaffManagement.Infrastructure.Data;
 using StaffManagement.Infrastructure.Identity;
 using StaffManagement.Infrastructure.Repositories;
 
@@ -21,6 +22,7 @@ public static class DependencyInjection
 
         services.AddScoped<IEmployeeRepository, EmployeeRepository>();
         services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+        services.AddScoped<IJobCategoryRepository, JobCategoryRepository>();
         
         AddAuthentication(services);
 
@@ -43,5 +45,6 @@ public static class DependencyInjection
 
         services.AddScoped<IIdentityService, IdentityService>();
         services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
+        services.AddScoped<DatabaseSeeder>();
     }
 }

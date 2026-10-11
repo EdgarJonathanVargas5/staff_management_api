@@ -17,8 +17,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-
-        // modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
         
         // Department configuration
         modelBuilder.Entity<Department>(entity =>
@@ -33,7 +31,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             entity.Property(d => d.Name)
                 .HasColumnName("NAME")
                 .HasMaxLength(30)
-                .IsRequired(false);
+                .IsRequired();
         });
 
         // JobCategory configuration
@@ -73,16 +71,16 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             entity.Property(e => e.FirstName)
                 .HasColumnName("FIRST_NAME")
                 .HasMaxLength(20)
-                .IsRequired(false);
+                .IsRequired();
 
             entity.Property(e => e.LastName)
                 .HasColumnName("LAST_NAME")
                 .HasMaxLength(25)
-                .IsRequired(false);
+                .IsRequired();
 
             entity.Property(e => e.Email)
                 .HasColumnName("EMAIL")
-                .HasMaxLength(25)
+                .HasMaxLength(30)
                 .IsRequired(false);
 
             entity.Property(e => e.PhoneNumber)

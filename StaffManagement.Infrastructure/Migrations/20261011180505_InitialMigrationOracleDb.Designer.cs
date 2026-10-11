@@ -12,8 +12,8 @@ using StaffManagement.Infrastructure;
 namespace StaffManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20261011030440_AddIdentitySupport")]
-    partial class AddIdentitySupport
+    [Migration("20261011180505_InitialMigrationOracleDb")]
+    partial class InitialMigrationOracleDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -168,6 +168,7 @@ namespace StaffManagement.Infrastructure.Migrations
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("NVARCHAR2(30)")
                         .HasColumnName("NAME");
@@ -191,11 +192,12 @@ namespace StaffManagement.Infrastructure.Migrations
                         .HasColumnName("DEPARTMENT_ID");
 
                     b.Property<string>("Email")
-                        .HasMaxLength(25)
-                        .HasColumnType("NVARCHAR2(25)")
+                        .HasMaxLength(30)
+                        .HasColumnType("NVARCHAR2(30)")
                         .HasColumnName("EMAIL");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("NVARCHAR2(20)")
                         .HasColumnName("FIRST_NAME");
@@ -209,6 +211,7 @@ namespace StaffManagement.Infrastructure.Migrations
                         .HasColumnName("JOB_CATEGORY_ID");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasMaxLength(25)
                         .HasColumnType("NVARCHAR2(25)")
                         .HasColumnName("LAST_NAME");

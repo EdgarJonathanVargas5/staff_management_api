@@ -40,6 +40,11 @@
     <Folder Include="Employees\Dtos\" />
     <Folder Include="Employees\Queries\GetEmployeeById\" />
     <Folder Include="Exceptions\" />
+    <Folder Include="JobCategories\" />
+    <Folder Include="JobCategories\Dtos\" />
+    <Folder Include="JobCategories\Queries\" />
+    <Folder Include="JobCategories\Queries\GetAllJobCategories\" />
+    <Folder Include="JobCategories\Queries\GetJobCategoryById\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -38,6 +38,20 @@ public static class ApiServiceCollectionExtensions
                     IssuerSigningKey = new SymmetricSecurityKey(
                         Encoding.UTF8.GetBytes(secretKey))
                 };
+
+                options.Events = new JwtBearerEvents
+                {
+                    OnForbidden = context =>
+                    {
+                        context.Response.StatusCode = StatusCodes.Status403Forbidden;
+
+                        return context.Response.WriteAsJsonAsync(new
+                        {
+                            error = "No estás autorizado para realizar esta operación.",
+                            detalle = "Se requiere el rol Admin."
+                        });
+                    }
+                };
             });
 
         return services;
