@@ -7,9 +7,11 @@ using StaffManagement.Application.Employees.Commands.DeleteEmployee;
 using StaffManagement.Application.Employees.Commands.UpdateEmployee;
 using StaffManagement.Application.Employees.Queries.GetAllEmployees;
 using StaffManagement.Application.Employees.Queries.GetEmployeeById;
+using Microsoft.AspNetCore.Authorization;
 
 namespace StaffManagement.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class EmployeesController : ControllerBase
@@ -21,6 +23,7 @@ namespace StaffManagement.Api.Controllers
             _sender = sender;
         }
 
+        [AllowAnonymous]
         [HttpGet(Name = "GetAllEmployees")]
         public async Task<IActionResult> GetAllEmployees(CancellationToken cancellationToken)
         {
@@ -29,6 +32,7 @@ namespace StaffManagement.Api.Controllers
             return Ok(result.Value);
         }
 
+        [AllowAnonymous]
         [HttpGet("{id:int}", Name = "GetEmployeeById")]
         public async Task<IActionResult> GetEmployeeById(int id, CancellationToken cancellationToken)
         {
@@ -41,6 +45,7 @@ namespace StaffManagement.Api.Controllers
             return Ok(result.Value);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost(Name = "CreateEmployee")]
         public async Task<IActionResult> CreateEmployee(CreateEmployeeRequest request, CancellationToken cancellationToken)
         {
@@ -63,7 +68,8 @@ namespace StaffManagement.Api.Controllers
             }
             return BadRequest(result.Errors);
         }
-
+        
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id:int}", Name = "UpdateEmployee")]
         public async Task<IActionResult> UpdateEmployee(int id, UpdateEmployeeRequest request, CancellationToken cancellationToken)
         {
@@ -92,6 +98,7 @@ namespace StaffManagement.Api.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id:int}", Name = "DeleteEmployee")]
         public async Task<IActionResult> DeleteEmployee(int id, CancellationToken cancellationToken)
         {

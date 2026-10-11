@@ -18,6 +18,11 @@
 
   <ItemGroup>
     <Folder Include="Abstractions\" />
+    <Folder Include="Authentication\" />
+    <Folder Include="Authentication\Commands\" />
+    <Folder Include="Authentication\Commands\LoginUser\" />
+    <Folder Include="Authentication\Commands\RegisterUser\" />
+    <Folder Include="Authentication\Dtos\" />
     <Folder Include="Behaviors\" />
     <Folder Include="Departments\" />
     <Folder Include="Departments\Commands\" />

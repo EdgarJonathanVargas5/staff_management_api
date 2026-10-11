@@ -1,3 +1,4 @@
+using StaffManagement.Api.Extensions;
 using StaffManagement.Api.Middleware;
 using StaffManagement.Application;
 using StaffManagement.Infrastructure;
@@ -7,7 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
 builder.Services.AddControllers();
-builder.Services.AddSwaggerGen();
+builder.Services.AddApiAuthentication(builder.Configuration);
+builder.Services.AddApiSwagger();
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -20,6 +23,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
+
 app.Run();
