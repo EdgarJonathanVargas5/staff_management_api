@@ -22,6 +22,7 @@ public static class DependencyInjection
 
         services.AddScoped<IEmployeeRepository, EmployeeRepository>();
         services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+        services.AddScoped<IJobCategoryRepository, JobCategoryRepository>();
         
         AddAuthentication(services);
 
