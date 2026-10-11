@@ -1,58 +1,52 @@
 # Staff Management API
 
-> Proyecto en construcción.
->
-> Esta API ya cuenta con una base funcional para administrar empleados y departamentos, pero sigue en fase de desarrollo. La intención es seguir ampliando validaciones, reglas de negocio, autenticación, pruebas y mejoras de infraestructura.
+> En desarrollo activo.
 
 ## Descripción general
 
-Staff Management API es un backend desarrollado con ASP.NET Core para gestionar la información de personal de una organización. Su objetivo principal es centralizar el manejo de empleados y departamentos mediante una API REST con estructura modular y separación de responsabilidades.
+Staff Management API es un backend desarrollado con ASP.NET Core para gestionar la información del personal de una organización. Su objetivo es centralizar la administración de empleados, departamentos, categorías laborales y usuarios autenticados con una API REST modular y segura.
 
-Actualmente se pueden realizar operaciones básicas de alta, consulta, actualización y eliminación de:
+Actualmente la solución permite:
 
-- Empleados
-- Departamentos
-
-## Estado del proyecto
-
-El proyecto se encuentra en desarrollo activo.
-
-Se planean incorporar las siguientes mejoras:
-
-- validaciones más robustas
-- autenticación y autorización
-- paginación y filtros
-- pruebas automatizadas
-- refinamiento de la persistencia y configuración de entorno
+- gestionar empleados
+- gestionar departamentos
+- consultar categorías laborales
+- registrar e iniciar sesión de usuarios
+- proteger endpoints con autenticación y autorización
+- ejecutar un seeding inicial de datos para entorno local
 
 ## Stack tecnológico
 
 - .NET 10
 - ASP.NET Core Web API
 - Entity Framework Core
+- ASP.NET Core Identity
+- JWT Bearer Authentication
 - Oracle Database
 - Docker Compose
 - MediatR
-- Swagger 
+- Mapster
+- Swagger
 
 ## Arquitectura
 
-El proyecto está organizado por capas para mantener una separación entre dominio, aplicación e infraestructura:
+El proyecto está organizado por capas para mantener una separación clara entre dominio, aplicación e infraestructura:
 
-- `StaffManagement.Api`: controladores, middleware y punto de entrada HTTP
-- `StaffManagement.Application`: comandos, queries, DTOs y validaciones
-- `StaffManagement.Domain`: entidades, contratos de repositorio y reglas del dominio
-- `StaffManagement.Infrastructure`: acceso a datos, DbContext, repositorios y configuración de dependencias
+- `StaffManagement.Api`: controladores, middleware, autenticación y punto de entrada HTTP
+- `StaffManagement.Application`: comandos, queries, DTOs, validaciones y comportamiento de aplicación
+- `StaffManagement.Domain`: entidades, errores del dominio y contratos de repositorio
+- `StaffManagement.Infrastructure`: DbContext, repositorios, Identity, JWT y seeding de datos
 
 ## Patrones y buenas prácticas aplicados
 
-El proyecto ya incorpora varios patrones que ayudan a mantener el código ordenado y escalable:
+El proyecto incorpora varios patrones que ayudan a mantener el código ordenado y escalable:
 
-- `CQRS` + `MediatR`: la lógica de lectura y escritura se organiza en queries y commands, desacoplados de los controladores.
-- `Result Pattern`: centraliza el resultado de las operaciones para manejar éxito, errores y validaciones de forma consistente.
-- `Repository Pattern`: la capa de infraestructura encapsula el acceso a datos mediante repositorios.
-- `Validation Behavior`: las validaciones se aplican de forma transversal mediante comportamientos de MediatR.
-- `Clean Architecture`: se separan dominio, aplicación e infraestructura para favorecer el mantenimiento.
+- `CQRS` + `MediatR`: lógica de lectura y escritura separada en queries y commands
+- `Result Pattern`: manejo consistente de éxito y errores
+- `Repository Pattern`: encapsulamiento del acceso a datos
+- `Validation Behavior`: validaciones transversales
+- `Clean Architecture`: separación por capas para mejorar mantenibilidad
+- `Identity + JWT`: autenticación segura para la API
 
 ## Funcionalidades actuales
 
@@ -76,13 +70,38 @@ La API permite:
 - actualizar un empleado
 - eliminar un empleado
 
+### Categorías laborales
+
+La API permite:
+
+- listar todas las categorías laborales
+- consultar una categoría por ID
+
+### Usuarios
+
+La API permite:
+
+- registrar un usuario nuevo
+- iniciar sesión con credenciales
+- obtener un token JWT para acceder a endpoints protegidos
+
+### Seed inicial de datos
+
+Se configuró un inicializador de base de datos que:
+
+- crea roles por defecto (Admin y User)
+- crea usuarios administrativos de ejemplo
+- carga departamentos iniciales
+- carga categorías de trabajo
+- crea empleados de prueba
+
+Esto permite levantar una instancia local con datos útiles para pruebas y desarrollo.
+
 ## Base de datos
 
-El proyecto está preparado para usar Oracle Database y se incluye un contenedor Docker para levantar una instancia local. 
+El proyecto está preparado para usar Oracle Database y cuenta con un contenedor Docker para levantar una instancia local.
 
-El archivo `docker-compose.yaml` configura un servicio Oracle 23c Free para facilitar el desarrollo local.
-
-Configurando una clave mediante un archivo .env.
+El archivo `docker-compose.yaml` configura un servicio Oracle 23c Free para facilitar el desarrollo local. La conexión se define mediante una cadena de conexión configurable, y se puede usar un archivo `.env` para mantener credenciales y variables de entorno fuera del repositorio.
 
 ## Información adicional
 
