@@ -7,9 +7,11 @@ using StaffManagement.Application.Departments.Commands.UpdateDepartment;
 using StaffManagement.Application.Departments.Queries.GetAllDepartments;
 using StaffManagement.Application.Departments.Queries.GetDepartmentById;
 using StaffManagement.Application.Departments.Commands.DeleteDepartment;
+using Microsoft.AspNetCore.Authorization;
 
 namespace StaffManagement.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class DepartmentsController : ControllerBase
@@ -21,6 +23,7 @@ namespace StaffManagement.Api.Controllers
             _sender = sender;
         }
 
+        [AllowAnonymous]
         [HttpGet(Name = "GetAllDepartments")]
         public async Task<IActionResult> GetAllDepartments(CancellationToken cancellationToken)
         {
@@ -29,6 +32,7 @@ namespace StaffManagement.Api.Controllers
             return Ok(result.Value);
         }
 
+        [AllowAnonymous]
         [HttpGet("{id:int}", Name = "GetDepartmentById")]
         public async Task<IActionResult> GetDepartmentById(int id, CancellationToken cancellationToken)
         {
@@ -41,6 +45,7 @@ namespace StaffManagement.Api.Controllers
             return Ok(result.Value);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost(Name = "CreateDepartment")]
         public async Task<IActionResult> CreateDepartment(CreateDepartmentRequest request, CancellationToken cancellationToken)
         {
@@ -56,6 +61,7 @@ namespace StaffManagement.Api.Controllers
                         result.Value);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id:int}", Name = "UpdateDepartment")]
         public async Task<IActionResult> UpdateDepartment(int id, UpdateDepartmentRequest request, CancellationToken cancellationToken)
         {
@@ -73,6 +79,7 @@ namespace StaffManagement.Api.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id:int}", Name = "DeleteDepartment")]
         public async Task<IActionResult> DeleteDepartment(int id, CancellationToken cancellationToken)
         {
