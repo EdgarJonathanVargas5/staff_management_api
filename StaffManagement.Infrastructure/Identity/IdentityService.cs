@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using StaffManagement.Application.Abstractions;
 using StaffManagement.Application.Authentication.Dtos;
-using StaffManagement.Domain.Abstractions;
+using StaffManagement.Domain.Errors;
 
 namespace StaffManagement.Infrastructure.Identity;
 
@@ -21,13 +21,13 @@ public class IdentityService : IIdentityService
         var user = await _userManager.FindByEmailAsync(request.Email);
         if (user == null)
         {
-            return Result<AuthUserResponse>.Failure(new Error("Identity.InvalidCredentials", "Credenciales incorrectas"));
+            return Result<AuthUserResponse>.Failure(IdentityErrors.InvalidCredentials);
         }
 
         var isValidPassword = await _userManager.CheckPasswordAsync(user, request.Password);
         if (!isValidPassword)
         {
-            return Result<AuthUserResponse>.Failure(new Error("Identity.InvalidCredentials", "Credenciales incorrectas"));
+            return Result<AuthUserResponse>.Failure(IdentityErrors.InvalidCredentials);
         }
 
         var roles = await _userManager.GetRolesAsync(user);
@@ -45,7 +45,7 @@ public class IdentityService : IIdentityService
         var existingUser = await _userManager.FindByEmailAsync(request.Email);
         if (existingUser != null)
         {
-            return Result<AuthUserResponse>.Failure(new Error("Identity.UserAlreadyExists", "El usuario ya está registrado"));
+            return Result<AuthUserResponse>.Failure(IdentityErrors.UserAlreadyExists);
         }
 
         var user = new ApplicationUser
@@ -59,7 +59,7 @@ public class IdentityService : IIdentityService
         if (!creationResult.Succeeded)
         {
             var firstError = creationResult.Errors.FirstOrDefault()?.Description ?? "Error al crear usuario";
-            return Result<AuthUserResponse>.Failure(new Error("Identity.RegisterFailed", firstError));
+            return Result<AuthUserResponse>.Failure(IdentityErrors.RegisterFailed(firstError));
         }
         await _userManager.AddToRoleAsync(user, "User");
         var roles = await _userManager.GetRolesAsync(user);
