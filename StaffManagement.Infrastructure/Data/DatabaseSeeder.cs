@@ -49,32 +49,32 @@ public sealed class DatabaseSeeder(
             new JobCategory
             {
                 Description = "Administrative",
-                MinSalary = 30000,
-                MaxSalary = 50000
+                MinSalary = 700000,
+                MaxSalary = 1200000
             },
             new JobCategory
             {
                 Description = "Financial Analyst",
-                MinSalary = 45000,
-                MaxSalary = 75000
+                MinSalary = 900000,
+                MaxSalary = 1500000
             },
             new JobCategory
             {
                 Description = "Software Engineer",
-                MinSalary = 60000,
-                MaxSalary = 120000
+                MinSalary = 1000000,
+                MaxSalary = 1600000
             },
             new JobCategory
             {
                 Description = "Operations Specialist",
-                MinSalary = 35000,
-                MaxSalary = 65000
+                MinSalary = 800000,
+                MaxSalary = 1300000
             },
             new JobCategory
             {
                 Description = "Sales Representative",
-                MinSalary = 35000,
-                MaxSalary = 80000
+                MinSalary = 900000,
+                MaxSalary = 1200000
             }
         };
 
@@ -107,21 +107,21 @@ public sealed class DatabaseSeeder(
 
         var employees = new[]
         {
-            ("Ana", "Lopez", "ana.lopez@example.test", 100001, "Human Resources", "Administrative"),
-            ("Luis", "Garcia", "luis.garcia@example.test", 100002, "Finance", "Financial Analyst"),
-            ("Marta", "Perez", "marta.perez@example.test", 100003, "Engineering", "Software Engineer"),
-            ("Carlos", "Ruiz", "carlos.ruiz@example.test", 100004, "Operations", "Operations Specialist"),
-            ("Elena", "Diaz", "elena.diaz@example.test", 100005, "Sales", "Sales Representative"),
-            ("Diego", "Torres", "diego.torres@example.test", 100006, "Engineering", "Software Engineer"),
-            ("Sofia", "Romero", "sofia.romero@example.test", 100007, "Finance", "Financial Analyst"),
-            ("Pablo", "Navarro", "pablo.navarro@example.test", 100008, "Operations", "Operations Specialist"),
-            ("Laura", "Castro", "laura.castro@example.test", 100009, "Human Resources", "Administrative"),
-            ("Jorge", "Morales", "jorge.morales@example.test", 100010, "Sales", "Sales Representative")
+            ("Ana", "Lopez", "ana.lopez@example.test", "+54 11 5123-2313", 41902800, "Human Resources", "Administrative"),
+            ("Luis", "Garcia", "luis.garcia@example.test", "+54 11 2223-2314", 38274195, "Finance", "Financial Analyst"),
+            ("Marta", "Perez", "marta.perez@example.test", "+54 11 5123-2315", 40518327, "Engineering", "Software Engineer"),
+            ("Carlos", "Ruiz", "carlos.ruiz@example.test", "+54 11 5223-2316", 36792418, "Operations", "Operations Specialist"),
+            ("Elena", "Diaz", "elena.diaz@example.test", "+54 11 5123-2317", 39105762, "Sales", "Sales Representative"),
+            ("Diego", "Torres", "diego.torres@example.test", "+54 11 5123-2318", 42831649, "Engineering", "Software Engineer"),
+            ("Sofia", "Romero", "sofia.romero@example.test", "+54 11 5123-2319", 37482051, "Finance", "Financial Analyst"),
+            ("Pablo", "Navarro", "pablo.navarro@example.test", "+54 11 5123-2320", 41269538, "Operations", "Operations Specialist"),
+            ("Laura", "Castro", "laura.castro@example.test", "+54 11 7823-2321", 35641870, "Human Resources", "Administrative"),
+            ("Jorge", "Morales", "jorge.morales@example.test", "+54 11 4423-2322", 44073126, "Sales", "Sales Representative")
         };
 
         foreach (var employee in employees)
         {
-            var (firstName, lastName, email, taxId, departmentName, categoryDescription) = employee;
+            var (firstName, lastName, email, phoneNumber, taxId, departmentName, categoryDescription) = employee;
 
             if (await db.Employees.AnyAsync(
                     existing => existing.Email == email,
@@ -135,6 +135,7 @@ public sealed class DatabaseSeeder(
                 FirstName = firstName,
                 LastName = lastName,
                 Email = email,
+                PhoneNumber = phoneNumber,
                 TaxId = taxId,
                 HireDate = DateTime.UtcNow,
                 DepartmentId = departmentsByName[departmentName],
