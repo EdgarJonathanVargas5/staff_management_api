@@ -5,7 +5,7 @@ using StaffManagement.Application.JobCategories.Queries.GetJobCategoryById;
 
 namespace StaffManagement.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/jobcategories")]
     [ApiController]
     public class JobCategoriesController : ControllerBase
     {

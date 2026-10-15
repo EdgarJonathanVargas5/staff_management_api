@@ -9,7 +9,7 @@ namespace StaffManagement.Api.Controllers;
 
 [Authorize]
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/users")]
 public class UsersController : ControllerBase
 {
     private readonly ISender _sender;

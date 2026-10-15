@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace StaffManagement.Api.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("api/employees")]
     [ApiController]
     public class EmployeesController : ControllerBase
     {
